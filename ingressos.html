@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venda de Ingressos e Reservas - Cinemado</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/ingressos.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cinemado</a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/submissao.html">Filmes Submetidos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/avaliacao.html">Filmes Avaliados</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/programacao.html">Programação</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/ingressos.html">Venda de Ingressos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/eventos.html">Eventos Paralelos</a></li>
+                    <!-- Adicione os outros links da navbar conforme necessário -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo da página -->
+    <main class="container mt-5">
+        <h1 class="text-center mb-4">Compre seu ingresso já!</h1>
+        <div class="row" id="ingresso-lista">
+            <!-- Aqui serão adicionados os cards de venda de ingresso e reserva -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="comprarIngressoModal" tabindex="-1" aria-labelledby="comprarIngressoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comprarIngressoModalLabel">Adicionar ao Carrinho</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Conteúdo do modal -->
+                <p>Deseja adicionar este ingresso ao carrinho?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="adicionarAoCarrinhoBtn">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fim Modal -->
+
+    <!-- Carrinho de Compras -->
+    <div id="carrinho" class="bg-light p-3 rounded">
+        <h3>Carrinho</h3>
+    </div>
+
+    
+    <!-- Footer -->
+    <footer class="page-footer dark">
+        <!-- Adicione o conteúdo do footer conforme necessário -->
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/ingressos.js"></script>
+
+</body>
+</html>

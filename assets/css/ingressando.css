@@ -1,0 +1,14 @@
+/* Estilos para a página de criação de programação */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    margin-top: 20px;
+}

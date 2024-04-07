@@ -1,0 +1,52 @@
+/* Estilos para a página de submissão de filmes */
+.admin-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#form-submissao-filmes {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#form-submissao-filmes h1 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#form-submissao-filmes .form-group {
+    margin-bottom: 20px;
+}
+
+#form-submissao-filmes label {
+    font-weight: bold;
+}
+
+#form-submissao-filmes input[type="text"],
+#form-submissao-filmes textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#form-submissao-filmes textarea {
+    height: 150px;
+}
+
+#form-submissao-filmes button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#form-submissao-filmes button[type="submit"]:hover {
+    background-color: #0056b3;
+}
