@@ -39,5 +39,4 @@ function carregarEventos() {
 // Carregar os eventos quando a página carregar
 document.addEventListener('DOMContentLoaded', () => {
     carregarEventos();
-}
-);
+});
