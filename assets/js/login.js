@@ -6,11 +6,11 @@ const mysql = require('mysql');
 
 // Configuração da conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
-  host: 'localhost', // Host do seu banco de dados
-  port: 3306, // Porta do seu banco de dados
-  user: 'root', // Usuário do seu banco de dados
-  password: 'p@$$w0rd', // Senha do seu banco de dados
-  database: 'cinema' // Nome do seu banco de dados
+  host: 'localhost', // Host do banco de dados
+  port: 3306, // Porta do banco de dados
+  user: 'root', // Usuário do banco de dados
+  password: 'p@$$w0rd', // Senha do banco de dados
+  database: 'cinema' // Nome do banco de dados
 });
 
 // Conectar ao banco de dados
@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
 
     if (results.length > 0) {
       // Usuário encontrado, login bem-sucedido
-      res.redirect('/index.html');
+      res.redirect('/painel-administracao');
     } else {
       // Usuário não encontrado, login inválido
       res.status(401).send('Credenciais inválidas');
