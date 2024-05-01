@@ -37,7 +37,23 @@ function adicionarAoCarrinho(ingressoId) {
     // Verifica se o ingresso já está no carrinho
     if (!carrinhoItens.includes(ingressoId)) {
         carrinhoItens.push(ingressoId);
+        atualizarIconeCarrinho(); // Atualiza o ícone do carrinho com a quantidade de itens
     }
+}
+
+// Função para remover todos os itens do carrinho
+function limparCarrinho() {
+    carrinhoItens = []; // Limpa o array de itens do carrinho
+    atualizarIconeCarrinho(); // Atualiza o ícone do carrinho para exibir a quantidade correta de itens
+    exibirCarrinho(); // Atualiza a exibição do carrinho
+}
+
+// Função para atualizar o ícone do carrinho com a quantidade de itens
+function atualizarIconeCarrinho() {
+    const carrinhoIcone = document.getElementById('carrinho-icon');
+    const quantidadeItens = carrinhoItens.length;
+    const badge = carrinhoIcone.querySelector('.badge');
+    badge.textContent = quantidadeItens;
 }
 
 // Função para exibir o carrinho
@@ -51,7 +67,7 @@ function exibirCarrinho() {
         const listaCarrinho = document.createElement('ul');
         carrinhoItens.forEach(ingressoId => {
             const itemCarrinho = document.createElement('li');
-            itemCarrinho.textContent = `Ingresso ${ingressoId}`;
+            itemCarrinho.textContent = `Ingresso para o filme: ${ingressoId}`;
             listaCarrinho.appendChild(itemCarrinho);
         });
         carrinho.appendChild(listaCarrinho);
@@ -61,11 +77,36 @@ function exibirCarrinho() {
     carrinho.style.display = 'block';
 }
 
-// Adiciona evento de clique ao botão "Adicionar ao Carrinho" dentro do modal
-document.getElementById('adicionarAoCarrinhoBtn').addEventListener('click', () => {
-    const ingressoId = document.getElementById('comprarIngressoModal').getAttribute('data-ingresso-id');
-    adicionarAoCarrinho(ingressoId);
-    exibirCarrinho();
+// Adiciona evento de clique ao botão "Comprar Ingresso" para adicionar o ingresso ao carrinho
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('comprar-ingresso-btn')) {
+        const ingressoId = event.target.getAttribute('data-ingresso-id');
+        adicionarAoCarrinho(ingressoId);
+        exibirCarrinho();
+    }
+});
+
+// Adiciona evento de clique ao botão "Limpar Carrinho"
+document.getElementById('limparCarrinhoBtn').addEventListener('click', limparCarrinho);
+
+// Finaliza a compra ao clicar no botão "Finalizar Compra"
+$('#finalizarCompraBtn').click(function() {
+    // Verifica se o carrinho está vazio
+    if (carrinhoItens.length === 0) {
+        alert('Seu carrinho está vazio. Adicione itens antes de finalizar a compra.');
+    } else {
+        // Implemente a lógica para finalizar a compra aqui
+        alert('Compra finalizada com sucesso!');
+        limparCarrinho(); // Limpa o carrinho após finalizar a compra
+        $('#carrinhoModal').modal('hide'); // Fecha o modal do carrinho
+    }
+});
+
+// Adiciona evento ao modal de carrinho para fechar o carrinho se estiver vazio e o modal for fechado
+$('#carrinhoModal').on('hidden.bs.modal', function (e) {
+    if (carrinhoItens.length === 0) {
+        $('#carrinho').hide(); // Oculta o carrinho
+    }
 });
 
 // Carrega os ingressos quando a página carregar
@@ -73,18 +114,60 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarIngressos();
 });
 
-// Adiciona evento de clique ao botão "Comprar Ingresso" para exibir o modal
+// Script jQuery
+$(document).ready(function() {
+    // Abre o modal do carrinho quando o ícone do carrinho é clicado
+    $('#carrinho-icon').click(function() {
+        $('#carrinhoModal').modal('show');
+    });
+});
+
+// Função para exibir os detalhes do filme dentro do carrinho de compras
+function exibirDetalhesFilme(ingressoId) {
+    fetch(`http://localhost:3000/ingressos/${ingressoId}`)
+        .then(response => response.json())
+        .then(ingresso => {
+            const carrinhoItems = document.getElementById('carrinho-items');
+            carrinhoItems.innerHTML = '';
+            
+            ingresso.forEach(ingresso => {
+                const itemCarrinho = `
+                    <li class="list-group list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Nome do Filme: ${ingresso.nome}</h6>
+                            <small class="text-muted
+                            ">Diretor: ${ingresso.diretor}</small>
+                        </div>
+                        <span class="text-muted
+                        ">Data: ${ingresso.data} | Hora: ${ingresso.hora}</span>
+                    </li>
+                `;
+                carrinhoItems.innerHTML += itemCarrinho;
+            });
+        })
+        .catch(error => console.log(error));
+}
+
+// Adiciona evento de clique ao botão "Comprar Ingresso" para adicionar o ingresso ao carrinho
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('comprar-ingresso-btn')) {
         const ingressoId = event.target.getAttribute('data-ingresso-id');
-        document.getElementById('comprarIngressoModal').setAttribute('data-ingresso-id', ingressoId);
+        adicionarAoCarrinho(ingressoId);
+        exibirDetalhesFilme(ingressoId); // Exibe os detalhes do filme ao adicionar ao carrinho
+        exibirCarrinho();
     }
 });
 
-// Adiciona evento de clique ao botão "Adicionar ao Carrinho" dentro do modal
-document.getElementById('adicionarAoCarrinhoBtn').addEventListener('click', () => {
-    const ingressoId = document.getElementById('comprarIngressoModal').getAttribute('data-ingresso-id');
-    adicionarAoCarrinho(ingressoId);
-    exibirCarrinho();
-    $('#comprarIngressoModal').modal('hide'); // Fecha o modal após adicionar ao carrinho
-});
+// Função para limpar os detalhes sobre o ingresso
+function limparDetalhesFilme() {
+    const carrinhoItems = document.getElementById('carrinho-items');
+    carrinhoItems.innerHTML = ''; // Limpa o conteúdo dos detalhes sobre o ingresso
+}
+
+// Função para remover todos os itens do carrinho
+function limparCarrinho() {
+    carrinhoItens = []; // Limpa o array de itens do carrinho
+    atualizarIconeCarrinho(); // Atualiza o ícone do carrinho para exibir a quantidade correta de itens
+    exibirCarrinho(); // Atualiza a exibição do carrinho
+    limparDetalhesFilme(); // Limpa os detalhes sobre o ingresso
+}

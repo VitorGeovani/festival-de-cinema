@@ -80,7 +80,6 @@
 }
 
 /* Estilo para o carrinho de compras */
-/* Estilo para o carrinho de compras */
 #carrinho {
     position: fixed;
     top: 80px;
@@ -140,6 +139,7 @@
 #fecharCarrinhoBtn:hover {
     color: #007bff;
 }
+
 
 
 @media (max-width: 768px) {
