@@ -41,6 +41,51 @@ function adicionarAoCarrinho(ingressoId) {
     }
 }
 
+// Função para finalizar a compra
+function finalizarCompra() {
+    // Solicita o e-mail do usuário
+    const userEmail = prompt("Por favor, insira seu endereço de e-mail:");
+
+    // Verifica se o usuário inseriu um e-mail
+    if (userEmail !== null && userEmail.trim() !== '') {
+        // Monta os dados da compra
+        const dataCompra = {
+            email: userEmail,
+            filme: { nome: 'Nome do Filme', data: 'Data do Filme', hora: 'Hora do Filme', local: 'Local do Filme' } // Ajuste os dados do filme conforme necessário
+        };
+
+        // Envia os dados da compra para o servidor
+        fetch('/finalizar-compra', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataCompra)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Imprime a resposta do servidor no console para depuração
+            if (data.success) {
+                alert('Compra finalizada com sucesso!');
+                limparCarrinho(); // Limpa o carrinho após finalizar a compra
+                $('#carrinhoModal').modal('hide'); // Fecha o modal do carrinho
+            } else {
+                alert('Erro ao finalizar a compra.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    } else {
+        // Se o usuário não inseriu um e-mail, exibe uma mensagem de alerta
+        alert('Por favor, insira um endereço de e-mail válido para finalizar a compra.');
+    }
+}
+
+
+
+
+// Evento de clique no botão "Finalizar Compra"
+document.getElementById('finalizarCompraBtn').addEventListener('click', finalizarCompra);
+
 // Função para remover todos os itens do carrinho
 function limparCarrinho() {
     carrinhoItens = []; // Limpa o array de itens do carrinho
@@ -96,7 +141,7 @@ $('#finalizarCompraBtn').click(function() {
         alert('Seu carrinho está vazio. Adicione itens antes de finalizar a compra.');
     } else {
         // Implemente a lógica para finalizar a compra aqui
-        alert('Compra finalizada com sucesso!');
+        alert('Compra finalizada com sucesso! Todos os detalhes serão enviados por e-mail.');
         limparCarrinho(); // Limpa o carrinho após finalizar a compra
         $('#carrinhoModal').modal('hide'); // Fecha o modal do carrinho
     }
