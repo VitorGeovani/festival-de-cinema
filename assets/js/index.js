@@ -11,7 +11,7 @@ const multer = require('multer');
 let data;
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '/Vitor/Meus Documentos/Downloads/festival-de-cinema-de-gramado-v3.4/uploads');
+        cb(null, '/Vitor/Meus Documentos/Área de Trabalho/festival-de-cinema-de-gramado-v3.4/uploads');
     },
     filename: function(req, file, cb) {
         data = new Date().toISOString().replace(/:/g, '-') + '-';

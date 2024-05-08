@@ -27,13 +27,89 @@
         </div>
     </nav>
 
-    <!-- Conteúdo da página do painel de administração -->
-    <main class="container mt-5">
-        <!-- Aqui você adiciona os formulários e campos necessários para cada funcionalidade do painel -->
-    </main>
+<!-- Conteúdo da página do painel de administração -->
+<main class="container mt-5">
+    <!-- Seção para exibir filmes inseridos -->
+    <section id="filmes-inseridos">
+        <h2>Filmes Inseridos</h2>
+        <div id="filmes-inseridos-list"></div>
+    </section>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <!-- <script src="assets/js/admin_panel.js"></script> -->
+    <!-- Seção para exibir filmes avaliados -->
+    <section id="filmes-avaliados">
+        <h2>Filmes Avaliados</h2>
+        <div id="filmes-avaliados-list"></div>
+    </section>
+
+    <!-- Seção para exibir programações -->
+    <section id="programacoes">
+        <h2>Programações</h2>
+        <div id="programacoes-list"></div>
+    </section>
+
+    <!-- Seção para exibir ingressos disponíveis -->
+    <section id="ingressos">
+        <h2>Ingressos Disponíveis</h2>
+        <div id="ingressos-list"></div>
+    </section>
+
+    <!-- Seção para exibir eventos paralelos -->
+    <section id="eventos-paralelos">
+        <h2>Eventos Paralelos</h2>
+        <div id="eventos-paralelos-list"></div>
+    </section>
+</main>
+
+<!-- Modal de Edição -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aqui serão exibidos os campos de edição -->
+                <input type="hidden" id="editItemId">
+                <div class="mb-3">
+                    <label for="editTitle" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="editTitle" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editDiretor" class="form-label">Diretor</label>
+                    <input type="text" class="form-control" id="editDiretor" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editGenero" class="form-label">Gênero</label>
+                    <input type="text" class="form-control" id="editGenero" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editDuracao" class="form-label">Duração (minutos)</label>
+                    <input type="number" class="form-control" id="editDuracao" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editData" class="form-label">Data de Lançamento</label>
+                    <input type="date" class="form-control" id="editData" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editSinopse" class="form-label">Sinopse</label>
+                    <textarea class="form-control" id="editSinopse" name="editSinopse" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="editClassificacao" class="form-label">Classificação Indicativa</label>
+                    <input type="text" class="form-control" id="editClassificacao" required>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" id="deleteButton" onclick="deleteItem()">Excluir</button>
+                <button type="button" class="btn btn-primary" id="saveButton" onclick="saveChanges()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/js/admin_painel.js"></script>
 </body>
-
 </html>
