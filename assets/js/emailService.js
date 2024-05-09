@@ -1,15 +1,14 @@
 // emailService.js
 
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 // Configurações de transporte do Nodemailer
 const mailConfig = {
-    host: 'smtp.gmail.com', // Servidor SMTP do Gmail
-    port: 465, // Porta para conexão segura
-    secure: true, // Usar SSL/TLS para conexão segura
+    service: 'gmail', // Alterado para 'gmail'
     auth: {
-        user: 'cinemadofestival@gmail.com', // Seu endereço de e-mail do Gmail
-        pass: 'skge guqq sxkg wfvy' // Sua senha de acesso do Gmail ou senha de app, se você tiver autenticação de dois fatores ativada
+        user: process.env.EMAIL || 'cinemadofestival@gmail.com',
+        pass: process.env.PASSWORD || 'skge guqq sxkg wfvy'
     }
 };
 
@@ -17,14 +16,14 @@ const mailConfig = {
 const transport = nodemailer.createTransport(mailConfig);
 
 // Função para enviar e-mails
-exports.sendEmails = async (email, title, output, attachments) => { // Adicionado o parâmetro "attachments"
+exports.sendEmails = async (email, title, output, attachments) => {
     let message = {
-        from: 'cinemadofestival@gmail.com',
+        from: process.env.EMAIL || 'cinemadofestival@gmail.com',
         to: email,
-        replyTo: 'cinemadofestival@gmail.com',
+        replyTo: process.env.EMAIL || 'cinemadofestival@gmail.com',
         subject: title,
         html: output,
-        attachments: attachments, // Passando os anexos (attachments)
+        attachments: attachments,
         date: Date.now()
     };
 

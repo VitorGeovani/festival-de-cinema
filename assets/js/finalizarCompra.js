@@ -1,10 +1,9 @@
 // finalizarCompra.js
 
 // Exemplo de uso do Nodemailer para enviar e-mail
-const nodemailer = require('nodemailer');
+const { sendEmails } = require('./emailService');
 const { createCanvas } = require('canvas');
 const QRCode = require('qrcode');
-const { sendEmails } = require('./emailService');
 
 // Função para gerar o QR Code
 async function gerarQRCode(texto) {
@@ -23,8 +22,6 @@ async function enviarEmail(email, mensagem, filme) {
     try {
         const qrCode = await gerarQRCode(JSON.stringify(filme));
         const mailOptions = {
-            from: 'cinemadofestival@gmail.com',
-            to: email,
             subject: 'Compra de ingresso realizada com sucesso!',
             html: `<p>${mensagem}</p>
                    <p>Filme: ${filme.nome}</p>

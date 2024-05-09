@@ -38,8 +38,17 @@ function adicionarAoCarrinho(ingressoId) {
     if (!carrinhoItens.includes(ingressoId)) {
         carrinhoItens.push(ingressoId);
         atualizarIconeCarrinho(); // Atualiza o ícone do carrinho com a quantidade de itens
+
+        // Reduz a quantidade de ingressos disponíveis
+        const ingressoCard = document.querySelector(`[data-ingresso-id="${ingressoId}"]`);
+        const vagasDisponiveisElement = ingressoCard.querySelector('.vagas-disponiveis');
+        const vagasDisponiveis = parseInt(vagasDisponiveisElement.textContent);
+        if (vagasDisponiveis > 0) {
+            vagasDisponiveisElement.textContent = vagasDisponiveis - 1;
+        }
     }
 }
+
 
 // Função para finalizar a compra
 function finalizarCompra() {
@@ -79,8 +88,6 @@ function finalizarCompra() {
         alert('Por favor, insira um endereço de e-mail válido para finalizar a compra.');
     }
 }
-
-
 
 
 // Evento de clique no botão "Finalizar Compra"

@@ -7,6 +7,24 @@ const port = 3000;
 const mysql = require('mysql');
 const multer = require('multer');
 
+const QRCode = require('qrcode');
+const { createCanvas } = require('canvas');
+const { sendEmails } = require('./emailService');
+
+// Configurações de transporte do Nodemailer
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const mailConfig = {
+    service: 'gmail', // Alterado para 'gmail'
+    auth: {
+        user: process.env.EMAIL || 'cinemadofestival@gmail.com',
+        pass: process.env.PASSWORD || 'skge guqq sxkg wfvy'
+    }
+};
+
+const transport = nodemailer.createTransport(mailConfig);
+
 // Configuração do Multer para upload de arquivos
 let data;
 const storage = multer.diskStorage({
@@ -328,4 +346,50 @@ router.patch('/eventos/:id', (req, res) => {
 
     // Atualize o evento paralelo com o id informado
     execSQLQuery(`UPDATE eventos SET capa='${capa}', nome='${nome}', data='${data}', hora='${hora}', local='${local}', descricao='${descricao}' WHERE id=${id}`, res);
+});
+
+//Rotas para Finalizar Compra
+router.post('/finalizar-compra', (req, res) => {
+    const { email, ingressoId, quantidade } = req.body;
+
+    // Verificar se o usuário existe
+    execSQLQuery(`SELECT id FROM usuarios WHERE email = '${email}'`, (userResult) => {
+        if (userResult.length === 0) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        const usuarioId = userResult[0].id;
+
+        // Verificar se o ingresso existe e há vagas disponíveis suficientes
+        execSQLQuery(`SELECT * FROM ingressos WHERE id = ${ingressoId} AND vagas >= ${quantidade}`, (ingressoResult) => {
+            if (ingressoResult.length === 0) {
+                return res.status(404).json({ success: false, message: 'Ingresso não encontrado ou não há vagas disponíveis suficientes.' });
+            }
+
+            const ingresso = ingressoResult[0];
+
+            // Realizar a compra
+            const dataCompra = new Date().toISOString();
+            execSQLQuery(`INSERT INTO compras_finalizadas (usuario_id, ingresso_id, quantidade, data_compra) VALUES (${usuarioId}, ${ingressoId}, ${quantidade}, '${dataCompra}')`, (purchaseResult) => {
+                if (purchaseResult.affectedRows === 1) {
+                    // Atualizar a quantidade de vagas disponíveis
+                    const novaQuantidade = ingresso.vagas - quantidade;
+                    execSQLQuery(`UPDATE ingressos SET vagas = ${novaQuantidade} WHERE id = ${ingressoId}`, (updateResult) => {
+                        if (updateResult.affectedRows === 1) {
+                            // Envie um e-mail de confirmação
+                            const title = 'Compra Finalizada';
+                            const output = `Sua compra foi finalizada com sucesso para o filme ${ingresso.nome}.`;
+                            const attachments = []; // Se houver anexos, adicione-os aqui
+                            sendEmails(email, title, output, attachments);
+                            return res.status(200).json({ success: true, message: 'Compra finalizada com sucesso!' });
+                        } else {
+                            return res.status(500).json({ success: false, message: 'Erro ao atualizar a quantidade de vagas disponíveis.' });
+                        }
+                    });
+                } else {
+                    return res.status(500).json({ success: false, message: 'Erro ao finalizar a compra.' });
+                }
+            });
+        });
+    });
 });

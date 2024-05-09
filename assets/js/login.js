@@ -37,6 +37,7 @@ app.post('/login', (req, res) => {
 
     if (results.length > 0) {
       // Usuário encontrado, login bem-sucedido
+      req.session.loggedin = true; // Marca o usuário como autenticado
       res.redirect('/painel-administracao');
     } else {
       // Usuário não encontrado, login inválido
@@ -44,6 +45,19 @@ app.post('/login', (req, res) => {
     }
   });
 });
+
+// Rota para o painel de administração
+app.get('/painel-administracao', (req, res) => {
+  // Verifica se o usuário está autenticado
+  if (req.session.loggedin) {
+    // O usuário está autenticado, permite o acesso ao painel de administração
+    res.send('Bem-vindo ao painel de administração!');
+  } else {
+    // O usuário não está autenticado, redireciona para a página de login
+    res.redirect('/login');
+  }
+});
+
 
 // Iniciar o servidor
 app.listen(port, () => {
