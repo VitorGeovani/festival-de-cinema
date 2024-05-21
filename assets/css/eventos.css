@@ -30,6 +30,11 @@
     font-size: 14px;
 }
 
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 @media (max-width: 768px) {
     /* Estilo para ajustar a altura da imagem do card de filme */
     .card-img-top {
@@ -63,5 +68,14 @@
     /* Estilo para ajustar a margem superior do conteúdo */
     .mt-5 {
         margin-top: 60px;
+    }
+
+    .navbar {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .text-center{
+        margin-top: 100px;
     }
 }

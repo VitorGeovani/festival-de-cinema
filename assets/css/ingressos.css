@@ -68,6 +68,11 @@
     border-top: none;
 }
 
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 /* Estilo para o botão de adicionar ao carrinho dentro do modal */
 #adicionarAoCarrinhoBtn {
     background-color: #007bff;
@@ -175,5 +180,14 @@
     /* Estilo para ajustar a margem superior do conteúdo */
     .mt-5 {
         margin-top: 60px;
+    }
+
+    .navbar {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .text-center{
+        margin-top: 100px;
     }
 }
