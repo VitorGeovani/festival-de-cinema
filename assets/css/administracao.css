@@ -1,64 +1,34 @@
-/* Estilos para a página de submissão de filmes */
-.admin-container {
-    max-width: 800px;
-    margin: 0 auto;
+/* Estilos para a página de administração */
+body {
+    font-family: 'Lato', sans-serif;
 }
 
-#form-submissao-filmes {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-#form-submissao-filmes h1 {
-    margin-bottom: 30px;
-    text-align: center;
+.navbar-brand img {
+    width: 100px;
 }
 
-#form-submissao-filmes .form-group {
-    margin-bottom: 20px;
+.navbar-nav .nav-link {
+    margin-right: 15px;
 }
 
-#form-submissao-filmes label {
-    font-weight: bold;
-}
-
-#form-submissao-filmes input[type="text"],
-#form-submissao-filmes textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#form-submissao-filmes textarea {
-    height: 150px;
-}
-
-#form-submissao-filmes button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#form-submissao-filmes button[type="submit"]:hover {
-    background-color: #0056b3;
+.main-container {
+    margin-top: 80px; /* Espaço para a navbar fixa */
 }
 
 /* Estilos para as seções de exibição de itens */
 section {
-    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 section h2 {
     margin-bottom: 20px;
     font-size: 24px;
+    text-align: center;
 }
 
 /* Utilizando flexbox para exibir os itens lado a lado */
@@ -74,6 +44,7 @@ section div div {
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 section div div img {
@@ -100,4 +71,54 @@ section div div button {
 
 section div div button:hover {
     background-color: #f0f0f0;
+}
+
+/* Modal */
+.modal .form-control {
+    margin-bottom: 15px;
+}
+
+#filmes-inseridos h2 {
+    margin-top: 120px;
+}
+
+/* Media query para dispositivos móveis */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-collapse {
+        display: none;
+    }
+
+    .navbar-collapse.show {
+        display: flex;
+    }
+
+    .main-container {
+        margin-top: 60px; /* Menos espaço para dispositivos móveis */
+        padding: 0 15px; /* Adiciona espaço nas laterais para evitar que o conteúdo encoste nas bordas */
+    }
+
+    section > div {
+        flex-direction: column;
+    }
+
+    section div div {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
 }

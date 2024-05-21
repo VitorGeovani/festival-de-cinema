@@ -76,6 +76,11 @@ body {
     transition: 0.5s;
 }
 
+.logotipo {
+    display: block;
+    margin: 0 auto; 
+}
+
 /* Estilos específicos para a página index.html */
 
 .clean-hero .text {

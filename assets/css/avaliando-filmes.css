@@ -16,3 +16,24 @@
 .btn-primary {
     width: 100%;
 }
+
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .navbar {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .text-center{
+        margin-top: 100px;
+    }
+}
