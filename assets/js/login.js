@@ -58,7 +58,6 @@ app.get('/painel-administracao', (req, res) => {
   }
 });
 
-
 // Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor iniciado em http://localhost:${port}`);

@@ -42,13 +42,12 @@ function adicionarAoCarrinho(ingressoId) {
         // Reduz a quantidade de ingressos disponíveis
         const ingressoCard = document.querySelector(`[data-ingresso-id="${ingressoId}"]`);
         const vagasDisponiveisElement = ingressoCard.querySelector('.vagas-disponiveis');
-        const vagasDisponiveis = parseInt(vagasDisponiveisElement.textContent);
+        let vagasDisponiveis = parseInt(vagasDisponiveisElement.textContent.trim());
         if (vagasDisponiveis > 0) {
             vagasDisponiveisElement.textContent = vagasDisponiveis - 1;
         }
     }
 }
-
 
 // Função para finalizar a compra
 function finalizarCompra() {

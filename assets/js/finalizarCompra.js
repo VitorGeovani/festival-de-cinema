@@ -48,4 +48,21 @@ function gerarChaveAleatoria() {
     return chave;
 }
 
-module.exports = { enviarEmail, gerarQRCode, gerarChaveAleatoria };
+// Função para finalizar a compra e diminuir o número de vagas disponíveis
+async function finalizarCompra(email, filme) {
+    try {
+        // Implemente a lógica para finalizar a compra aqui
+        // Reduz o número de vagas disponíveis do filme
+        filme.vagas--;
+
+        // Envie o e-mail com os detalhes do filme e o QR Code
+        const mensagem = 'Compra realizada com sucesso! Confira os detalhes do seu ingresso:';
+        await enviarEmail(email, mensagem, filme);
+
+        console.log('Compra finalizada com sucesso!');
+    } catch (error) {
+        console.error('Erro ao finalizar a compra:', error);
+    }
+}
+
+module.exports = { finalizarCompra, gerarQRCode, gerarChaveAleatoria };
