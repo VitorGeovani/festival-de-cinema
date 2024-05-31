@@ -21,8 +21,8 @@ function loadFilmesInseridos() {
                     <p><strong>Data de Lançamento:</strong> ${filme.data_lancamento}</p>
                     <p><strong>Sinopse:</strong> ${filme.sinopse}</p>
                     <p><strong>Classificação Indicativa:</strong> ${filme.classificacao_indicativa}</p>
-                    <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('${filme.id}')">Editar</button>
-                    <button type="button" class="btn btn-danger" onclick="openEditDeleteModal('${filme.id}')">Excluir</button>
+                    <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('filmes', '${filme.id}')">Editar</button>
+                    <button type="button" class="btn btn-danger" onclick="openDeleteModal('filmes', '${filme.id}')">Excluir</button>
                 `;
 
                 filmesList.appendChild(filmeItem); // Adiciona o elemento div à lista de filmes
@@ -45,8 +45,8 @@ function loadFilmesAvaliados() {
                         <img src="${filme.capa}" alt="${filme.titulo}" width="100">
                         <h3>${filme.titulo}</h3>
                         <p>${filme.comentario_tecnico}</p>
-                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('${filme.id}')">Editar</button>
-                        <button type="button" class="btn btn-danger" onclick="openEditDeleteModal('${filme.id}')">Excluir</button>
+                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('filmes-avaliados', '${filme.id}')">Editar</button>
+                        <button type="button" class="btn btn-danger" onclick="openDeleteModal('filmes-avaliados', '${filme.id}')">Excluir</button>
                     </div>
                 `;
                 filmesList.appendChild(filmeItem);
@@ -68,8 +68,8 @@ function loadProgramacoes() {
                     <div>
                         <h3>${programacao.titulo}</h3>
                         <p>Data: ${programacao.data}, Horário: ${programacao.horario}, Local: ${programacao.local}</p>
-                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('${programacao.id}')">Editar</button>
-                        <button type="button" class="btn btn-danger" onclick="openEditDeleteModal('${programacao.id}')">Excluir</button>
+                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('programacoes', '${programacao.id}')">Editar</button>
+                        <button type="button" class="btn btn-danger" onclick="openDeleteModal('programacoes', '${programacao.id}')">Excluir</button>
                     </div>
                 `;
                 programacoesList.appendChild(programacaoItem);
@@ -91,8 +91,8 @@ function loadIngressos() {
                     <div>
                         <h3>${ingresso.nome}</h3>
                         <p>Data: ${ingresso.data}, Horário: ${ingresso.hora}, Local: ${ingresso.local}, Vagas: ${ingresso.vagas}</p>
-                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('${ingresso.id}')">Editar</button>
-                        <button type="button" class="btn btn-danger" onclick="openEditDeleteModal('${ingresso.id}')">Excluir</button>
+                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('ingressos', '${ingresso.id}')">Editar</button>
+                        <button type="button" class="btn btn-danger" onclick="openDeleteModal('ingressos', '${ingresso.id}')">Excluir</button>
                     </div>
                 `;
                 ingressosList.appendChild(ingressoItem);
@@ -114,8 +114,8 @@ function loadEventosParalelos() {
                     <div>
                         <h3>${evento.nome}</h3>
                         <p>Data: ${evento.data}, Horário: ${evento.hora}, Local: ${evento.local}</p>
-                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('${evento.id}')">Editar</button>
-                        <button type="button" class="btn btn-danger" onclick="openEditDeleteModal('${evento.id}')">Excluir</button>
+                        <button type="button" class="btn btn-primary" onclick="openEditDeleteModal('eventos', '${evento.id}')">Editar</button>
+                        <button type="button" class="btn btn-danger" onclick="openDeleteModal('eventos', '${evento.id}')">Excluir</button>
                     </div>
                 `;
                 eventosList.appendChild(eventoItem);
@@ -123,7 +123,6 @@ function loadEventosParalelos() {
         })
         .catch(error => console.error('Erro ao carregar eventos paralelos:', error));
 }
-
 
 // Chamar as funções para carregar e exibir os dados ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
@@ -137,12 +136,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Variável para armazenar o ID do item selecionado
 let selectedItemId;
 
-// Função para abrir o modal de edição
-function openEditDeleteModal(id) {
+// Função para abrir o modal de edição/exclusão
+function openEditDeleteModal(type, id) {
     selectedItemId = id;
     $('#editModal').modal('show'); // Abrir o modal
     // Carregar os dados do item selecionado no modal
-    fetch(`http://localhost:3000/filmes/${id}`)
+    fetch(`http://localhost:3000/${type}/${id}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('editTitle').value = data.titulo;
@@ -155,59 +154,66 @@ function openEditDeleteModal(id) {
         })
         .catch(error => console.error('Erro ao carregar o item:', error));
 
-    // Adicionar evento de clique ao botão de excluir
-    const deleteButton = document.getElementById('deleteButton');
-    deleteButton.onclick = function() {
-        deleteItem(id);
-        $('#editModal').modal('hide'); // Fechar o modal após a exclusão
-    };
-
     // Adicionar evento de clique ao botão de salvar alterações
     const saveButton = document.getElementById('saveButton');
-    saveButton.onclick = saveChanges;
+    saveButton.onclick = function() {
+        saveChanges(type, id);
+    };
+}
+
+// Função para abrir o modal de exclusão
+function openDeleteModal(type, id) {
+    selectedItemId = id;
+    $('#deleteModal').modal('show'); // Abrir o modal de exclusão
+
+    // Adicionar evento de clique ao botão de confirmar exclusão
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+    confirmDeleteButton.onclick = function() {
+        deleteItem(type, id);
+    };
 }
 
 // Função para salvar as alterações feitas no modal de edição
-function saveChanges() {
-    // Verifica se um item foi selecionado antes de salvar as alterações
-    if (selectedItemId) {
-        const newTitle = document.getElementById('editTitle').value;
-        const newDiretor = document.getElementById('editDiretor').value;
-        const newGenero = document.getElementById('editGenero').value;
-        const newDuracao = document.getElementById('editDuracao').value;
-        const newLancamento = document.getElementById('editData').value; // Corrigido para 'editData'
-        const newSinopse = document.getElementById('editSinopse').value;
-        const newClassificacao = document.getElementById('editClassificacao').value;
-        const newData = { 
-            titulo: newTitle,
-            diretor: newDiretor,
-            genero: newGenero,
-            duracao: newDuracao,
-            data_lancamento: newLancamento, // Corrigido para 'data_lancamento'
-            sinopse: newSinopse,
-            classificacao_indicativa: newClassificacao
-        };
+function saveChanges(type, id) {
+    const newTitle = document.getElementById('editTitle').value;
+    const newDiretor = document.getElementById('editDiretor').value;
+    const newGenero = document.getElementById('editGenero').value;
+    const newDuracao = document.getElementById('editDuracao').value;
+    const newLancamento = document.getElementById('editData').value;
+    const newSinopse = document.getElementById('editSinopse').value;
+    const newClassificacao = document.getElementById('editClassificacao').value;
 
-        // Atualizar os dados do item no servidor
-        updateItem(selectedItemId, newData);
-    } else {
-        console.error('Nenhum item selecionado para salvar as alterações.');
-    }
-}
+    const updatedItem = {
+        titulo: newTitle,
+        diretor: newDiretor,
+        genero: newGenero,
+        duracao: newDuracao,
+        data_lancamento: newLancamento,
+        sinopse: newSinopse,
+        classificacao_indicativa: newClassificacao
+    };
 
-// Função para atualizar um item
-function updateItem(id, newData) {
-    fetch(`http://localhost:3000/filmes/${id}`, {
+    fetch(`http://localhost:3000/${type}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(updatedItem)
     })
     .then(response => {
         if (response.ok) {
             $('#editModal').modal('hide'); // Fechar o modal após a atualização
-            loadFilmesInseridos(); // Recarregar a lista de filmes após a atualização
+            if (type === 'filmes') {
+                loadFilmesInseridos(); // Recarrega a lista de filmes inseridos
+            } else if (type === 'filmes-avaliados') {
+                loadFilmesAvaliados(); // Recarrega a lista de filmes avaliados
+            } else if (type === 'programacoes') {
+                loadProgramacoes(); // Recarrega a lista de programações
+            } else if (type === 'ingressos') {
+                loadIngressos(); // Recarrega a lista de ingressos
+            } else if (type === 'eventos') {
+                loadEventosParalelos(); // Recarrega a lista de eventos paralelos
+            }
         } else {
             // Se a resposta não estiver OK, lança um erro com a mensagem da resposta
             response.json().then(data => {
@@ -218,19 +224,36 @@ function updateItem(id, newData) {
     .catch(error => console.error('Erro ao atualizar o item:', error.message));
 }
 
-
-
 // Função para excluir um item
-function deleteItem(id) {
-    fetch(`http://localhost:3000/filmes/${id}`, {
+function deleteItem(type, id) {
+    fetch(`http://localhost:3000/${type}/${id}`, {
         method: 'DELETE'
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Erro ao excluir o item');
         }
-        // Atualize a página ou a lista após a exclusão
-        loadItems();
+        $('#deleteModal').modal('hide'); // Fechar o modal após a exclusão
+        if (type === 'filmes') {
+            loadFilmesInseridos(); // Recarrega a lista de filmes inseridos
+        } else if (type === 'filmes-avaliados') {
+            loadFilmesAvaliados(); // Recarrega a lista de filmes avaliados
+        } else if (type === 'programacoes') { // Aqui estava 'programacao'
+            loadProgramacoes(); // Recarrega a lista de programações
+        } else if (type === 'ingressos') {
+            loadIngressos(); // Recarrega a lista de ingressos
+        } else if (type === 'eventos') {
+            loadEventosParalelos(); // Recarrega a lista de eventos paralelos
+        }
     })
     .catch(error => console.error('Erro ao excluir o item:', error));
 }
+
+// Carregar dados iniciais
+document.addEventListener('DOMContentLoaded', function() {
+    loadFilmesInseridos();
+    loadFilmesAvaliados();
+    loadProgramacoes();
+    loadIngressos();
+    loadEventosParalelos();
+});
