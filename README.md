@@ -20,7 +20,36 @@
 
  <br>
 
- ## <a name="ComoContribuirParaOProjeto"></a>Como contribuir para o projeto ⁉️
+ ## <a name="SobreoProjeto"></a>:information_source: Especificações do Projeto
+
+O Festival Cinemado é uma aplicação web desenvolvida para gerenciar um festival fictício de cinema em Gramado. Inspirado por um projeto da matéria de Programação Web do curso de TADS do SENAC - SP, este projeto permite a administração completa dos filmes, ingressos e eventos do festival, além de facilitar a interação do público com as atividades programadas.
+<br>
+<br>
+
+## <a name="SobreoProjeto"></a>:pushpin: Funcionalidades
+```
+- Registrar novos usuários no sistema;
+- Fazer login e obter acesso às funcionalidades do sistema;
+- Adicionar filmes ao catálogo e permitir edição, listagem ou exclusão de filmes;
+- Avaliar os filmes do catálogo com notas de Cinematografia, Originalidade e Comentários Técnicos, além de permitir edição, listagem ou exclusão das avaliações;
+- Criar programações baseadas nos filmes do catálogo, especificando título, diretor, data, horário e local da sessão, com opções de edição, listagem ou exclusão das programações;
+- Gerar ingressos com base nas programações criadas, especificando o filme, diretor, data, horário, local e quantidade de vagas disponíveis;
+- Criar eventos paralelos ou adicionais ao festival, ampliando as opções para o público.
+```
+
+
+## <a name="SobreoProjeto"></a>:computer: Como Usar
+```
+1. Clone o repositório para o seu ambiente local.
+2. Abra o terminal na pasta do projeto e execute `npm install` para instalar as dependências.
+3. Configure o banco de dados MySQL utilizando o script fornecido na seção "Banco de Dados".
+4. Execute `node banco.js` para criar as tabelas necessárias.
+5. Inicie a aplicação com `node index.js`.
+6. Acesse a aplicação no navegador em `http://localhost:3000` e cadastre-se no sistema.
+7. Faça login para acessar as funcionalidades disponíveis.
+```
+
+## <a name="ComoContribuirParaOProjeto"></a>Como contribuir para o projeto ⁉️
 
 1. Faça um **fork** do projeto.
 2. Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
@@ -112,6 +141,16 @@ CREATE TABLE ingressos (
     hora VARCHAR(50),
     local VARCHAR(255),
     vagas INT
+);
+
+CREATE TABLE compras_finalizadas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    ingresso_id INT,
+    quantidade INT,
+    data_compra DATETIME,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (ingresso_id) REFERENCES ingressos(id)
 );
 
 ```
