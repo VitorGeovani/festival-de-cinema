@@ -49,6 +49,29 @@ O Festival Cinemado é uma aplicação web desenvolvida para gerenciar um festiv
 7. Faça login para acessar as funcionalidades disponíveis.
 ```
 
+## <a name="RecursosUtilizadosNesteProjeto"></a>⚒ Recursos utilizados neste projeto
+<table align="center">
+<th><h3>Linguagem</h3></th>
+ <th><h3>Front-End</h3></th>
+ <th><h3>Back-End</h3></th>
+    <th><h3>Banco de Dados</h3></th>
+  <tr>
+      <td valign="top" align="center">
+      <a href="https://www.javascript.com/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="max-width:100%;"></img></a>
+      </td>
+   <td valign="top" align="center">
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" style="max-width:100%;"></img></a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" style="max-width:100%;"></img></a>
+      </td>
+      <td valign="top" align="center">
+      <a href="https://nodejs.org/en/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" style="max-width:100%;"></img></a>
+      </td>
+      <td valign="top" align="center">
+      <a href="https://www.mysql.com/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" style="max-width:100%;"></img></a>
+      </td>
+  </tr>
+</table>
+
 ## <a name="ComoContribuirParaOProjeto"></a>Como contribuir para o projeto ⁉️
 
 1. Faça um **fork** do projeto.
