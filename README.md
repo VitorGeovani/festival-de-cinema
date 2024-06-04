@@ -75,16 +75,16 @@ O Festival Cinemado é uma aplicação web desenvolvida para gerenciar um festiv
 
 
 ### Dependências do projeto:
-    Express 4.19.2 - É um framework para Node.js que fornece recursos mínimos para construção de servidores web.
-    Nodemon 3.1.0 - Para restartar o server sempre que houver uma alteração.
-    Jsonwebtoken 8.5.1 - Utilizado para criação e posteriormente verificação de token para autenticação.
-    Bcrypt 5.0.1 - Para criptografar as senhas de usuários antes de salvar no banco.
-    Crypto 1.0.1 - Utilizado para criar um token aleatório que será transformado em string.
-    Cors 2.8.5 - É um mecanismo utilizado pelos navegadores para compartilhar recursos entre diferentes origens.
-    Multer 1.4.5 - É um middleware node.js para lidar com multipart, que é usado principalmente para fazer upload de arquivos.
-    Nodemailer 6.9.13 - Utilizado para enviar e-mails.
-    MariaDB 2.18.1 - É o banco de dados que nos usamos (dependência utilizada para conexão da ORM com banco de dados).
-    Dotenv 16.4.5 - Utilizado para setar as variáveis de ambiente (dados sensíveis).
+- <a href="https://www.npmjs.com/package/express">Express</a> 4.19.2 - É um framework para Node.js que fornece recursos mínimos para construção de servidores web.
+- <a href="https://www.npmjs.com/package/nodemon">Nodemon</a> 3.1.0 - Para restartar o server sempre que houver uma alteração.
+- <a href="https://www.npmjs.com/package/jsonwebtoken">Jsonwebtoken</a> 8.5.1 - Utilizado para criação e posteriormente verificação de token para autenticação.
+- <a href="https://www.npmjs.com/package/bcrypt">Bcrypt</a> 5.0.1 - Para criptografar as senhas de usuários antes de salvar no banco.
+- <a href="https://www.npmjs.com/package/crypto-js">Crypto</a> 1.0.1 - Utilizado para criar um token aleatório que será transformado em string.
+- <a href="https://www.npmjs.com/package/cors">Cors</a> 2.8.5 - É um mecanismo utilizado pelos navegadores para compartilhar recursos entre diferentes origens.
+- <a href="https://www.npmjs.com/package/multer">Multer</a> 1.4.5 - É um middleware node.js para lidar com multipart, que é usado principalmente para fazer upload de arquivos.
+- <a href="https://www.npmjs.com/package/nodemailer">Nodemailer</a> 6.9.13 - Utilizado para enviar e-mails.
+- <a href="https://www.npmjs.com/package/mysql">MySQL</a> 2.18.1 - Banco de dados utilizado (dependência utilizada para conexão da ORM com banco de dados).
+- <a href="https://www.npmjs.com/package/dotenv">Dotenv</a> 16.4.5 - Utilizado para setar as variáveis de ambiente (dados sensíveis).
 
 
 <br>
