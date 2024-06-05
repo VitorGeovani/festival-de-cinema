@@ -71,6 +71,13 @@ body {
     border-color: #0056b3;
 }
 
+.success-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .card-body {

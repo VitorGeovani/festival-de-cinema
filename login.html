@@ -22,6 +22,7 @@
                     <div class="card-header text-center">Cinemado - Login</div>
                     <div class="card-body p-4">
                         <span id="error-message" class="error-message d-block text-center"></span>
+                        <span id="success-message" class="success-message d-block text-center"></span>
                         <form id="login-form">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -46,7 +47,7 @@
         </div>
     </div>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('login-form').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -71,8 +72,11 @@
                 });
 
                 if (usuario) {
-                    alert('Login realizado com sucesso!');
-                    window.location.href = 'painel-administracao.html';
+                    document.getElementById('success-message').textContent = 'Login realizado com sucesso!';
+                    document.getElementById('success-message').style.color = 'green';
+                    setTimeout(() => {
+                        window.location.href = 'painel-administracao.html';
+                    }, 1000);
                 } else {
                     document.getElementById('error-message').textContent = 'Email ou senha incorretos!';
                 }
