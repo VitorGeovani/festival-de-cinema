@@ -20,7 +20,76 @@
 
  <br>
 
- ## <a name="ComoContribuirParaOProjeto"></a>Como contribuir para o projeto ⁉️
+ ## <a name="SobreoProjeto"></a>:information_source: Especificações do Projeto
+
+O Festival Cinemado é uma aplicação web desenvolvida para gerenciar um festival fictício de cinema em Gramado. Inspirado por um projeto da matéria de Programação Web do curso de TADS do SENAC - SP, este projeto permite a administração completa dos filmes, ingressos e eventos do festival, além de facilitar a interação do público com as atividades programadas.
+<br>
+<br>
+
+## <a name="SobreoProjeto"></a>:pushpin: Funcionalidades
+```
+- Registrar novos usuários no sistema;
+- Fazer login e obter acesso às funcionalidades do sistema;
+- Adicionar filmes ao catálogo e permitir edição, listagem ou exclusão de filmes;
+- Avaliar os filmes do catálogo com notas de Cinematografia, Originalidade e Comentários Técnicos, além de permitir edição, listagem ou exclusão das avaliações;
+- Criar programações baseadas nos filmes do catálogo, especificando título, diretor, data, horário e local da sessão, com opções de edição, listagem ou exclusão das programações;
+- Gerar ingressos com base nas programações criadas, especificando o filme, diretor, data, horário, local e quantidade de vagas disponíveis;
+- Criar eventos paralelos ou adicionais ao festival, ampliando as opções para o público.
+```
+
+
+## <a name="SobreoProjeto"></a>:computer: Como Usar
+```
+1. Clone o repositório para o seu ambiente local.
+2. Abra o terminal na pasta do projeto e execute `npm install` para instalar as dependências.
+3. Configure o banco de dados MySQL utilizando o script fornecido na seção "Banco de Dados".
+4. Execute `node banco.js` para criar as tabelas necessárias.
+5. Inicie a aplicação com `node index.js`.
+6. Acesse a aplicação no navegador em `http://localhost:3000` e cadastre-se no sistema.
+7. Faça login para acessar as funcionalidades disponíveis.
+```
+
+## <a name="RecursosUtilizadosNesteProjeto"></a>⚒ Recursos utilizados neste projeto
+<table align="center">
+<th><h3>Linguagem</h3></th>
+ <th><h3>Front-End</h3></th>
+ <th><h3>Back-End</h3></th>
+    <th><h3>Banco de Dados</h3></th>
+  <tr>
+      <td valign="top" align="center">
+      <a href="https://www.javascript.com/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="max-width:100%;"></img></a>
+      </td>
+   <td valign="top" align="center">
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" style="max-width:100%;"></img></a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" style="max-width:100%;"></img></a>
+      </td>
+      <td valign="top" align="center">
+      <a href="https://nodejs.org/en/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" style="max-width:100%;"></img></a>
+      </td>
+      <td valign="top" align="center">
+      <a href="https://www.mysql.com/"><img height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" style="max-width:100%;"></img></a>
+      </td>
+  </tr>
+</table>
+
+
+
+### Dependências do projeto:
+- <a href="https://www.npmjs.com/package/express">Express</a> 4.19.2 - É um framework para Node.js que fornece recursos mínimos para construção de servidores web.
+- <a href="https://www.npmjs.com/package/nodemon">Nodemon</a> 3.1.0 - Para restartar o server sempre que houver uma alteração.
+- <a href="https://www.npmjs.com/package/jsonwebtoken">Jsonwebtoken</a> 8.5.1 - Utilizado para criação e posteriormente verificação de token para autenticação.
+- <a href="https://www.npmjs.com/package/bcrypt">Bcrypt</a> 5.0.1 - Para criptografar as senhas de usuários antes de salvar no banco.
+- <a href="https://www.npmjs.com/package/crypto-js">Crypto</a> 1.0.1 - Utilizado para criar um token aleatório que será transformado em string.
+- <a href="https://www.npmjs.com/package/cors">Cors</a> 2.8.5 - É um mecanismo utilizado pelos navegadores para compartilhar recursos entre diferentes origens.
+- <a href="https://www.npmjs.com/package/multer">Multer</a> 1.4.5 - É um middleware node.js para lidar com multipart, que é usado principalmente para fazer upload de arquivos.
+- <a href="https://www.npmjs.com/package/nodemailer">Nodemailer</a> 6.9.13 - Utilizado para enviar e-mails.
+- <a href="https://www.npmjs.com/package/mysql">MySQL</a> 2.18.1 - Banco de dados utilizado (dependência utilizada para conexão da ORM com banco de dados).
+- <a href="https://www.npmjs.com/package/dotenv">Dotenv</a> 16.4.5 - Utilizado para setar as variáveis de ambiente (dados sensíveis).
+
+
+<br>
+
+## <a name="ComoContribuirParaOProjeto"></a>Como contribuir para o projeto ⁉️
 
 1. Faça um **fork** do projeto.
 2. Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
@@ -112,6 +181,16 @@ CREATE TABLE ingressos (
     hora VARCHAR(50),
     local VARCHAR(255),
     vagas INT
+);
+
+CREATE TABLE compras_finalizadas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    ingresso_id INT,
+    quantidade INT,
+    data_compra DATETIME,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (ingresso_id) REFERENCES ingressos(id)
 );
 
 ```
