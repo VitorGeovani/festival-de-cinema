@@ -66,6 +66,18 @@ body {
     text-align: center;
 }
 
+.success-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .card-body {
