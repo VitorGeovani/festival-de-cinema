@@ -12,24 +12,32 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center mb-4">Cadastro - Cinemado</h1>
-        <!-- Formulário de cadastro -->
-        <form id="form-cadastro" action="http://localhost:3000/usuarios/" method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Seu email">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row justify-content-center w-100">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <h1 class="text-center mb-4">Cadastro - Cinemado</h1>
+                        <!-- Formulário de cadastro -->
+                        <form id="form-cadastro" action="http://localhost:3000/usuarios/" method="POST">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Seu email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Sua senha" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+                            <div class="text-center mt-3">
+                                <!-- Link para a página de login -->
+                                <a href="login.html" class="faca-login-aqui">Já tem cadastro? Faça login aqui</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="senha" name="senha" placeholder="Sua senha">
-            </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-            <div class="col-12 text-center">
-                <!-- Link para a página de login -->
-                <a href="login.html" class="faca-login-aqui">Já tem cadastro? Faça login aqui</a>
-            </div>
-        </form>
+        </div>
     </div>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -64,5 +72,4 @@
         });
     </script>
 </body>
-
 </html>
